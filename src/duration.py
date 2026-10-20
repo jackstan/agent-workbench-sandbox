@@ -14,7 +14,7 @@ def duration_minutes(text: str) -> int:
         if match is None:
             raise ValueError("Use nonnegative whole numbers followed by h or m")
         amount, unit = match.groups()
-        total = int(amount) * (60 if unit == "h" else 1)
+        total += int(amount) * (60 if unit == "h" else 1)
     return total
 
 
