@@ -1,0 +1,39 @@
+{
+  "proposal_id": "sandbox-hosted-repair-1",
+  "scout": {
+    "scout_id": "sandbox-operator",
+    "scout_type": "quality",
+    "display_name": "Deliberate repair-cycle pilot"
+  },
+  "role": "quality",
+  "trigger": "An operator-created candidate PR is approved for the hosted verifier and repair cycle",
+  "problem": "A deliberately seeded candidate may violate duration aggregation despite passing the original acceptance suite",
+  "evidence": [
+    {
+      "source": "tests/test_duration.py",
+      "observation": "The six fixed acceptance tests do not cover totals above 180 minutes",
+      "reproductions": ["python -m unittest discover -s tests -v", "python -m src.duration '4h'"]
+    }
+  ],
+  "user_impact": "Long durations must return their full total rather than an arbitrary maximum",
+  "confidence": "high",
+  "proposed_change": "Independently inspect the candidate and repair any scoped violation of the full duration contract",
+  "alternatives": ["Stop for human intervention if the finding cannot be repaired within the approved file"],
+  "acceptance_criteria": [
+    "All nonnegative whole-hour and whole-minute tokens accumulate without an arbitrary upper bound",
+    "4h produces 240 and 3h 30m produces 210",
+    "Ordering, repeated units, whitespace, single-unit and zero values preserve their specified behavior",
+    "Empty, negative, fractional, unsupported and malformed inputs remain rejected",
+    "The CLI and Python function produce the same total",
+    "Only src/duration.py changes; all six predefined tests remain unchanged"
+  ],
+  "required_tests": ["python -m unittest discover -s tests -v"],
+  "risks_non_goals": [
+    "This is an explicitly seeded regression trial, not a naturally discovered Scout finding",
+    "A correct candidate must pass without inventing a blocker to force repair",
+    "No changes to tests, dependencies, workflows, permissions or configuration",
+    "The worker must not publish, merge or deploy",
+    "The workflow must leave the PR for human merge"
+  ],
+  "dependencies": ["Python 3.12, the pinned Workbench engine and a dedicated OpenAI API key"]
+}

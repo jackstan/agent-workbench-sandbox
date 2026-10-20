@@ -1,0 +1,13 @@
+# Reviewed GitHub-hosted pilot settings. Only jackstan's canonical user may dispatch.
+schema_version = 1
+project_id = "agent-workbench-sandbox"
+repository = "jackstan/agent-workbench-sandbox"
+base_branch = "main"
+approver_actor_id = "github:90746520"
+approved_paths = ["src/duration.py"]
+max_repair_attempts = 2
+
+[[checks]]
+id = "acceptance"
+command = ["python", "-m", "unittest", "discover", "-s", "tests", "-v"]
+timeout_seconds = 30
