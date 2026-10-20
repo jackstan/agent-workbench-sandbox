@@ -5,6 +5,7 @@ import re
 
 
 def duration_minutes(text: str) -> int:
+    """Sum every valid token without imposing a maximum duration."""
     tokens = text.split()
     if not tokens:
         raise ValueError("Provide at least one duration, such as 1h 30m")
