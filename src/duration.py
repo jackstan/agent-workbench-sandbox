@@ -5,6 +5,7 @@ import re
 
 
 def duration_minutes(text: str) -> int:
+    """Sum every valid token without imposing a maximum duration."""
     tokens = text.split()
     if not tokens:
         raise ValueError("Provide at least one duration, such as 1h 30m")
@@ -15,7 +16,7 @@ def duration_minutes(text: str) -> int:
             raise ValueError("Use nonnegative whole numbers followed by h or m")
         amount, unit = match.groups()
         total += int(amount) * (60 if unit == "h" else 1)
-    return total
+    return min(total, 180)
 
 
 def main() -> None:
