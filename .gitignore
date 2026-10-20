@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.env.*
+*.local.toml
+*.sqlite
+*.sqlite-*
+reports/
+prepared-proposal.json
+authorization.json
+.DS_Store

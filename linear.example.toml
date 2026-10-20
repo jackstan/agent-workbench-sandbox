@@ -1,0 +1,6 @@
+# Synthetic IDs only. Copy to linear.local.toml and replace all four IDs.
+# Use a dedicated sandbox project and a creator app distinct from the approver.
+organization_id = "00000000-0000-4000-8000-000000000001"
+team_id = "00000000-0000-4000-8000-000000000002"
+project_id = "00000000-0000-4000-8000-000000000003"
+creator_actor_id = "00000000-0000-4000-8000-000000000004"

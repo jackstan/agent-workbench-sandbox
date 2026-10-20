@@ -1,0 +1,14 @@
+# This approver UUID is synthetic. Copy to project.local.toml and replace it
+# with the real human's canonical Linear user UUID before any live approval.
+schema_version = 1
+project_id = "agent-workbench-sandbox"
+repository = "jackstan/agent-workbench-sandbox"
+base_branch = "main"
+approver_actor_id = "00000000-0000-4000-8000-000000000005"
+approved_paths = ["src/duration.py"]
+max_repair_attempts = 2
+
+[[checks]]
+id = "acceptance"
+command = ["python", "-m", "unittest", "discover", "-s", "tests", "-v"]
+timeout_seconds = 30

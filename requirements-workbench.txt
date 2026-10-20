@@ -1,0 +1,2 @@
+# Exact implementation revision; no floating branch dependency.
+agent-workbench @ git+https://github.com/jackstan/agent-workbench.git@16672ad5dcb9f975e6dc79e93b2df900cd5e3ce5

@@ -1,0 +1,37 @@
+{
+  "proposal_id": "sandbox-duration-aggregation-1",
+  "scout": {
+    "scout_id": "sandbox-orchestrator",
+    "scout_type": "quality",
+    "display_name": "Sandbox pilot orchestrator"
+  },
+  "role": "quality",
+  "trigger": "Predefined acceptance tests reproduce an intentionally seeded defect",
+  "problem": "The duration parser returns only the last token's minutes",
+  "evidence": [
+    {
+      "source": "tests/test_duration.py",
+      "observation": "1h 30m reports 30 minutes; the specified total is 90",
+      "reproductions": ["python -m src.duration '1h 30m'", "python -m unittest discover -s tests -v"]
+    }
+  ],
+  "user_impact": "Multi-token durations produce incorrect totals in this test application",
+  "confidence": "high",
+  "proposed_change": "Accumulate every valid duration token while preserving input validation",
+  "alternatives": ["Restrict input to one token, which would not satisfy the specified behavior"],
+  "acceptance_criteria": [
+    "1h 30m and 30m 1h both produce 90",
+    "Repeated units accumulate and whitespace does not change the total",
+    "Single-unit and zero values keep their existing behavior",
+    "Empty, negative, fractional, unsupported and malformed inputs remain rejected",
+    "The CLI reports the same total as the Python function",
+    "Only src/duration.py changes; the predefined tests remain unchanged"
+  ],
+  "required_tests": ["python -m unittest discover -s tests -v"],
+  "risks_non_goals": [
+    "No dependency, test, workflow, agent-policy or configuration changes",
+    "No publication, merge or deployment by the worker",
+    "This seeded defect is a pilot target, not a genuine Scout finding"
+  ],
+  "dependencies": ["Python 3.11 or later; standard library only"]
+}
