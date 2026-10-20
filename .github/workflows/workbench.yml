@@ -21,7 +21,7 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  WORKBENCH_REVISION: 5a42a540fe1dcca1ea4868a82fc4ccfe1e48bf7e
+  WORKBENCH_REVISION: 6c5d71ea9f33b766b43f9ffff94c50056e945889
   PYTHONDONTWRITEBYTECODE: '1'
   PYTHONNOUSERSITE: '1'
 
@@ -121,7 +121,7 @@ jobs:
           GH_TOKEN: ${{ github.token }} # Read-only; excluded from worker environment.
         run: |
           modules_dir="$(npm root -g)"
-          codex_native="$(python -c 'import pathlib,sys; p=list(pathlib.Path(sys.argv[1]).glob("**/vendor/*/codex/codex")); assert len(p)==1, p; print(p[0])' "$modules_dir")"
+          codex_native="$(python -c 'import pathlib,sys; p=list(pathlib.Path(sys.argv[1]).glob("**/vendor/*/bin/codex")); assert len(p)==1, p; print(p[0])' "$modules_dir")"
           python -m agent_workbench.github_cycle run \
             --packet "$RUNNER_TEMP/approval/authorization.json" \
             --checkout "$GITHUB_WORKSPACE/candidate" \
